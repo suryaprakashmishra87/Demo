@@ -1,0 +1,13 @@
+SELECT LPAD(' ',4*(LEVEL-1)) || table1 || ' <-- ' || table2 tables, table2_fkey
+FROM
+  (SELECT a.table_name table1, b.table_name table2, b.constraint_name table2_fkey
+  FROM user_constraints a, user_constraints b 
+  WHERE a.constraint_type IN('P', 'U') 
+  AND b.constraint_type = 'R' 
+  AND a.constraint_name = b.r_constraint_name 
+  AND a.table_name != b.table_name
+  AND b.table_name <> 'MYTABLE')
+CONNECT BY PRIOR  table2 = table1 AND LEVEL <= 5
+START WITH table1 = 'MYTABLE';
+
+------------------
