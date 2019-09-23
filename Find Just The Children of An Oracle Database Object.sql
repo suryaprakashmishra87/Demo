@@ -6,11 +6,10 @@ When an object is dropped, or becomes invalid, all the children of that object b
 
 This script only shows the most immediate child level.
 
-———–
+â€”â€”â€”â€“
 
 /*
 
-By Rodger Lepinsky
 Script to find all the child dependencies of an object.
 If the object is dropped, or becomes invalid, all the children will become invalid.
 
@@ -19,23 +18,23 @@ Successive generations of children are not displayed.
 
 */
 
-accept ls_REF_name prompt “Enter an object to find references to: ” ;
+accept ls_REF_name prompt â€œEnter an object to find references to: â€ ;
 
 Select
-TYPE || ‘ ‘ ||
-OWNER || ‘.’ || NAME || ‘ references ‘ ||
-REFERENCED_TYPE || ‘ ‘ ||
-REFERENCED_OWNER || ‘.’ || REFERENCED_NAME
+TYPE || â€˜ â€˜ ||
+OWNER || â€˜.â€™ || NAME || â€˜ references â€˜ ||
+REFERENCED_TYPE || â€˜ â€˜ ||
+REFERENCED_OWNER || â€˜.â€™ || REFERENCED_NAME
 as DEPENDENCIES
 From all_dependencies
-Where referenced_name = UPPER(LTRIM(RTRIM( ‘&ls_REF_name’ )))
-AND (REFERENCED_OWNER <> ‘SYS’
-AND REFERENCED_OWNER <> ‘SYSTEM’
-AND REFERENCED_OWNER <> ‘PUBLIC’
+Where referenced_name = UPPER(LTRIM(RTRIM( â€˜&ls_REF_nameâ€™ )))
+AND (REFERENCED_OWNER <> â€˜SYSâ€™
+AND REFERENCED_OWNER <> â€˜SYSTEMâ€™
+AND REFERENCED_OWNER <> â€˜PUBLICâ€™
 )
-AND (OWNER <> ‘SYS’
-AND OWNER <> ‘SYSTEM’
-AND OWNER <> ‘PUBLIC’
+AND (OWNER <> â€˜SYSâ€™
+AND OWNER <> â€˜SYSTEMâ€™
+AND OWNER <> â€˜PUBLICâ€™
 )
 order by OWNER, name,
 REFERENCED_TYPE ,
